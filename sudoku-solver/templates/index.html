@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sudoku Solver – Visualize Recursion and Backtracking</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head>
+<body>
+<header><div><h1>Sudoku Solver</h1><p>Visualize Recursion and Backtracking</p></div>
+<nav><a href="#solver">Solver</a><a href="#how">How It Works</a><a href="#about">About</a>
+<a href="https://github.com/your-username/sudoku-solver" id="gh">GitHub</a></nav></header>
+<main id="solver">
+<section class="board-col"><div id="grid" aria-label="Sudoku grid"></div>
+<p id="status" role="status">Enter a puzzle or load the example.</p></section>
+<section class="panel"><h2>Controls</h2>
+<div class="row"><button id="btnExample">Load Example</button><button id="btnClear">Clear Board</button>
+<button id="btnValidate">Validate Puzzle</button></div>
+<div class="row"><button id="btnSolve" class="primary">Solve Puzzle</button>
+<button id="btnViz" class="primary">Visualize Step by Step</button><button id="btnEdit">Edit Puzzle</button></div>
+<h2>Playback</h2>
+<div class="row"><button id="btnPlay">▶ Play</button><button id="btnPause">⏸ Pause</button>
+<button id="btnBack">⏮ Step Back</button><button id="btnFwd">Step Forward ⏭</button>
+<button id="btnReset">Reset Visualization</button></div>
+<label>Speed <input type="range" id="speed" min="1" max="100" value="60"></label>
+<progress id="progress" value="0" max="1"></progress>
+<p id="progressText">Event 0 / 0</p><p id="action" class="action">No visualization loaded.</p>
+<ul class="legend"><li><span class="k place">▲</span>Trying a digit</li>
+<li><span class="k backtrack">✕</span>Rejected, backtracking</li><li><span class="k solved">✓</span>Solved</li>
+<li><span class="k clue">1</span>Clue</li><li><span class="k user">1</span>Typed</li><li><span class="k algo">1</span>Solver</li></ul>
+</section></main>
+<section class="stats"><h2>Algorithm Statistics <small>(measured in the Python solver, not the animation)</small></h2>
+<div id="stats" class="statgrid"></div></section>
+<section id="how" class="text"><h2>How It Works</h2>
+<p>The solver keeps a set of used digits for every row, column and 3×3 box, plus a list of empty cells. For each empty cell it computes <code>candidates = {1..9} − row − column − box</code>, places one, updates the sets and recurses to the next empty cell. If the recursion fails, it undoes the sets and the cell and tries the next candidate (<b>backtracking</b>). Every placement and undo is recorded as an event; this page replays that event log.</p>
+<p>Time: worst case exponential, O(9<sup>k</sup>) for k empty cells; space: O(k) recursion depth plus the 27 sets.</p></section>
+<section id="about" class="text"><h2>About</h2><p>A DSA portfolio project: Python/Flask backend running a set-based recursive DFS, vanilla JS front end.</p></section>
+<script src="{{ url_for('static', filename='js/visualizer.js') }}"></script>
+</body></html>
